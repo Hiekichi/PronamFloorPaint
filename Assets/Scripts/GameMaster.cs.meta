@@ -1,10 +1,18 @@
 fileFormatVersion: 2
 guid: db925211030684a1fbeb2a5a358635d1
-timeCreated: 1448924930
+timeCreated: 1449465687
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - RockTr: {instanceID: 0}
+  - BlueRockTr: {instanceID: 0}
+  - BlockTr: {instanceID: 0}
+  - FloorTr: {instanceID: 0}
+  - PronamaTr: {instanceID: 0}
+  - BlockGO: {fileID: 159566, guid: 98ed6f3b7ce184299a95b9db0ee836c5, type: 2}
+  - FloorGO: {fileID: 185542, guid: 23b2b73dfcf4b48a98978e59e06a250a, type: 2}
+  - PronamaGO: {fileID: 108494, guid: c87685eb274464006a3b35c5531ef143, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

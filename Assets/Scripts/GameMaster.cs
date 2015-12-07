@@ -7,7 +7,7 @@ public class GameMaster : MonoBehaviour {
 	int floorTileCount;
 	GameObject[,] actors = new GameObject[19,11];
 	GameObject mainActor;
-	public Transform RockTr, BlueRockTr, BlockTr, FloorTr, PronamaTr;
+	//public Transform RockTr, BlueRockTr, BlockTr, FloorTr, PronamaTr;
 	public GameObject BlockGO, FloorGO, PronamaGO;
 
 	int left = -320;
@@ -60,17 +60,17 @@ public class GameMaster : MonoBehaviour {
 		for (int x = 0; x < 21; ++x) {
 			v.x = left + (diff * x);
 			v.y = bottom;
-			Instantiate (BlockTr, v, transform.rotation);  
+			Instantiate (BlockGO, v, transform.rotation);  
 			v.y = top;
-			Instantiate (BlockTr, v, transform.rotation);  
+			Instantiate (BlockGO, v, transform.rotation);  
 		}
 		// 周りの壁(2) 左右の端
 		for (int y = 0; y < 11; ++y) {
 			v.x = left;
 			v.y = bottom + diff + (diff * y);
-			Instantiate (BlockTr, v, transform.rotation);  
+			Instantiate (BlockGO, v, transform.rotation);  
 			v.x = right;
-			Instantiate (BlockTr, v, transform.rotation);  
+			Instantiate (BlockGO, v, transform.rotation);  
 		}
 	}
 
