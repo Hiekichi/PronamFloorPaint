@@ -1,12 +1,14 @@
 ; 19 x 11
-................BBB
-...BBBBBBB...P.....
-.BBB.........B.....
-...B........BBB....
-B..B.........B.....
-...................
-BBBBBBBBB.BBBBBBBBB
-B..................
-B..................
-BBB.BBBBBB.....BB..
-BBB............BB..
+BBBBBBBBBBBBBBBBBBBBB
+B................BBBB
+B...BBBBBBB...P.....B
+B.BBB.........B.....B
+B...B........BBB....B
+BB..B.........B.....B
+B...................B
+BBBBBBBBBB.BBBBBBBBBB
+BB..................B
+BB..................B
+BBBB.BBBBBB.....BB..B
+BBBB............BB..B
+BBBBBBBBBBBBBBBBBBBBB

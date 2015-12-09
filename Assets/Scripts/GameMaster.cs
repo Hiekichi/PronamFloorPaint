@@ -5,6 +5,7 @@ public class GameMaster : MonoBehaviour {
 	int gameStatus; // 0:before  1:game 2:gameover
 	int stageNumber;
 	int floorTileCount;
+	string[,] stageCell = new string[21, 13];
 	GameObject[,] actors = new GameObject[19,11];
 	GameObject mainActor;
 	//public Transform RockTr, BlueRockTr, BlockTr, FloorTr, PronamaTr;
@@ -20,9 +21,27 @@ public class GameMaster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		stageNumber = 1;
+		LoadStageData (stageNumber);
 		CreateGameFieldWall ();
 		StartStage ();
 	}
+
+	void LoadStageData(int number) {
+		string filename = string.Format ("Map{0:00}.txt", number);
+		Debug.Log (filename);
+		TextAsset textAsset = (TextAsset)Resources.Load (filename);
+		string allString = textAsset.text;
+
+		char[] delimiterChars = {'\r', '\n'};
+		string[] recStrings = allString.Split (delimiterChars);
+
+		for (int y = 0; y < 13; ++y) {
+			for (int x = 0; x < 21; ++x) {
+				stageCell [x, y] = recStrings [y + 1].Substring (x, 1);
+			}
+		}
+	}
+
 	void StartStage() {
 		gameStatus = 0;
 		CreateGameFieldStage ();
@@ -31,7 +50,7 @@ public class GameMaster : MonoBehaviour {
 	}
 
 	void StartGame() {
-	
+		
 	}
 
 	// Update is called once per frame
@@ -50,6 +69,7 @@ public class GameMaster : MonoBehaviour {
 			}
 		}
 		stageNumber++;
+		LoadStageData (stageNumber);
 		StartStage ();
 	}
 
@@ -62,7 +82,7 @@ public class GameMaster : MonoBehaviour {
 			v.y = bottom;
 			Instantiate (BlockGO, v, transform.rotation);  
 			v.y = top;
-			Instantiate (BlockGO, v, transform.rotation);  
+			Instantiate (BlockGO, v, transform.rotation);
 		}
 		// 周りの壁(2) 左右の端
 		for (int y = 0; y < 11; ++y) {
@@ -77,31 +97,24 @@ public class GameMaster : MonoBehaviour {
 	void CreateGameFieldStage() {
 		Vector3 v = new Vector3 ();
 
-		string filename = string.Format ("Map{0:00}.txt", stageNumber);
-		Debug.Log (filename);
-		TextAsset textAsset = (TextAsset)Resources.Load (filename);
-		string allString = textAsset.text;
-
-		char[] delimiterChars = {'\r', '\n'};
-		string[] recStrings = allString.Split (delimiterChars);
 
 		floorTileCount = 1;
-		for (int y = 0; y < 11; ++y) {
+		for (int y = 1; y < 12; ++y) {
 			//Debug.Log (recStrings [y + 1]);
-			for (int x = 0; x < 19; ++x) {
-				v.y = top - diff - (diff * y);
-				v.x = left + diff + (diff * x);
-				string s = recStrings [y + 1].Substring (x, 1);
+			for (int x = 1; x < 20; ++x) {
+				v.y = top - (diff * y);
+				v.x = left + (diff * x);
+				string s = stageCell[x,y]; //###
 				//Debug.Log (s);
 				if ( s.Equals("P")) {
-					actors[x,y] = (GameObject)Instantiate (FloorGO, v, transform.rotation);
+					actors[x - 1,y - 1] = (GameObject)Instantiate (FloorGO, v, transform.rotation);
 					mainActor = (GameObject)Instantiate (PronamaGO, v, transform.rotation);
 				}
 				else if ( s.Equals("B")) {
-					actors[x,y] = (GameObject)Instantiate (BlockGO, v, transform.rotation);
+					actors[x - 1,y - 1] = (GameObject)Instantiate (BlockGO, v, transform.rotation);
 				}
 				else { //if ( s.Equals(".")) {
-					actors[x,y] = (GameObject)Instantiate (FloorGO, v, transform.rotation);
+					actors[x - 1,y - 1] = (GameObject)Instantiate (FloorGO, v, transform.rotation);
 					floorTileCount++;
 				}
 
@@ -114,5 +127,9 @@ public class GameMaster : MonoBehaviour {
 	}
 	void FloorTileCountDown() {
 		floorTileCount--;
+	}
+
+	public string GetStageCell(int x, int y) {
+		return stageCell [x, y];
 	}
 }

@@ -18,6 +18,7 @@ public class PronamaChan : MonoBehaviour {
 	void Start () {
 		step = 0;     // 0:停止  !0:移動中
 		direct = 1;
+
 	}
 	
 	// Update is called once per frame
