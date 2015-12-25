@@ -21,15 +21,20 @@ public class GameMaster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		stageNumber = 1;
-		LoadStageData (stageNumber);
+		LoadStageData ();
 		CreateGameFieldWall ();
 		StartStage ();
 	}
 
-	void LoadStageData(int number) {
-		string filename = string.Format ("Map{0:00}.txt", number);
+	void LoadStageData() {
+		string filename = string.Format ("Map{0:00}.txt", stageNumber);
 		Debug.Log (filename);
 		TextAsset textAsset = (TextAsset)Resources.Load (filename);
+		if (textAsset == null) {
+			stageNumber = 1; //めんどくさいので1面に戻しちゃった
+			filename = string.Format ("Map{0:00}.txt", stageNumber);
+			textAsset = (TextAsset)Resources.Load (filename);
+		}
 		string allString = textAsset.text;
 
 		char[] delimiterChars = {'\r', '\n'};
@@ -69,7 +74,7 @@ public class GameMaster : MonoBehaviour {
 			}
 		}
 		stageNumber++;
-		LoadStageData (stageNumber);
+		LoadStageData ();
 		StartStage ();
 	}
 
